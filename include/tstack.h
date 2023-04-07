@@ -1,11 +1,14 @@
-template <typename type>
+// Copyright 2021 NNTU-CS
+#ifndef INCLUDE_TSTACK_H_
+#define INCLUDE_TSTACK_H_
+template<typename type>
 class TStack {
- private:
-    static const int size = 100;
-    type arr[size];
-    int top;
- public:
-    TStack() : top(-1) {}
+private:
+    static constexpr int kSize = 100;
+    type arr[kSize];
+    int top = -1;
+public:
+    TStack() = default;
     type get() const {
         return arr[top];
     }
@@ -13,14 +16,17 @@ class TStack {
         return top == -1;
     }
     bool isFull() const {
-        return top == size - 1;
+        return top == kSize - 1;
     }
     void pop() {
-        if (!isEmpty())
+        if (!isEmpty()) {
             --top;
+        }
     }
     void push(type item) {
-        if (!isFull())
+        if (!isFull()) {
             arr[++top] = item;
+        }
     }
 };
+#endif  // INCLUDE_TSTACK_H_
