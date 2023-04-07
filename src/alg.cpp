@@ -16,13 +16,13 @@ int getPrior(char s) {
 std::string infx2pstfx(std::string inf) {
     std::string str = "";
     int pr = 0;
-    TStack<char> myStack;
+   TStack<char, 100> myStack;
     for (int i = 0; i < inf.size(); i++) {
         if (inf[i] >= '0' && inf[i] <= '9') {
             if (i < inf.size() - 1 && inf[i + 1] >= '0' && inf[i + 1] <= '9') {
-                str.push_back(char(inf[i]));
+                str.push_back(static_cast<char>(str[i])));
             } else {
-                str.push_back(char(inf[i]));
+                str.push_back(static_cast<char>(inf[i]));
                 str.push_back(' ');
             }
         } else {
@@ -56,7 +56,7 @@ std::string infx2pstfx(std::string inf) {
     return str;
 }
 int eval(std::string post) {
-    TStack<int> stack1;
+    TStack<int, 100> stack1;
     int num = 0;
     for (int i = 0; i < post.size(); i++) {
         if (post[i] >= '0' && post[i] <= '9') {
