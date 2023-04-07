@@ -1,14 +1,10 @@
-// Copyright 2021 NNTU-CS
-#ifndef INCLUDE_TSTACK_H_
-#define INCLUDE_TSTACK_H_
-
-template<typename T, int size>
+template <typename type>
 class TStack {
-private:
-    static const int size;
+ private:
+    static const int size = 100;
     type arr[size];
     int top;
-public:
+ public:
     TStack() : top(-1) {}
     type get() const {
         return arr[top];
@@ -28,5 +24,3 @@ public:
             arr[++top] = item;
     }
 };
-
-#endif  // INCLUDE_TSTACK_H_
