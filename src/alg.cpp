@@ -27,7 +27,7 @@ std::string infx2pstfx(std::string inf) {
             }
         } else {
             pr = getPrior(inf[i]);
-            if ((pr == 0) || (myStack.isEmpty()) || (pr > getPrior(myStack.get()))) {
+            if (pr == 0 || myStack.isEmpty() || pr > getPrior(myStack.get())) {
                 myStack.push(inf[i]);
             } else if (pr == 1) {
                 while (myStack.get() != '(') {
