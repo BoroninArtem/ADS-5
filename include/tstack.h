@@ -3,11 +3,12 @@
 #define INCLUDE_TSTACK_H_
 template<typename type>
 class TStack {
-private:
+ private:
     static constexpr int kSize = 100;
     type arr[kSize];
     int top = -1;
-public:
+
+ public:
     TStack() = default;
     type get() const {
         return arr[top];
