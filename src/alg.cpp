@@ -2,13 +2,6 @@
 #include <string>
 #include <map>
 #include "tstack.h"
-#include <iostream>
-#include "tstack.cpp"
-// Copyright 2021 NNTU-CS
-#include <string>
-#include <map>
-#include "tstack.h"
-
 int getPrior(char s) {
     if (s == '(')
         return 0;
@@ -20,7 +13,6 @@ int getPrior(char s) {
         return 3;
     return 0;
 }
-
 std::string infx2pstfx(std::string inf) {
     std::string str = "";
     int pr = 0;
@@ -29,18 +21,15 @@ std::string infx2pstfx(std::string inf) {
         if (inf[i] >= '0' && inf[i] <= '9') {
             if (i < inf.size() - 1 && inf[i + 1] >= '0' && inf[i + 1] <= '9') {
                 str.push_back(char(inf[i]));
-            }
-            else {
+            } else {
                 str.push_back(char(inf[i]));
                 str.push_back(' ');
             }
-        }
-        else {
+        } else {
             pr = getPrior(inf[i]);
             if ((pr == 0) || (myStack.isEmpty()) || (pr > getPrior(myStack.get()))) {
                 myStack.push(inf[i]);
-            }
-            else if (pr == 1) {
+            } else if (pr == 1) {
                 while (myStack.get() != '(') {
                     if (myStack.get() != ')' && myStack.get() != '(') {
                         str.push_back(myStack.get());
@@ -49,8 +38,7 @@ std::string infx2pstfx(std::string inf) {
                     myStack.pop();
                 }
                 myStack.pop();
-            }
-            else {
+            } else {
                 while (!myStack.isEmpty() && getPrior(myStack.get()) >= pr) {
                     str.push_back(myStack.get());
                     str.push_back(' ');
@@ -67,21 +55,18 @@ std::string infx2pstfx(std::string inf) {
     }
     return str;
 }
-
 int eval(std::string post) {
     TStack<int> stack1;
     int num = 0;
     for (int i = 0; i < post.size(); i++) {
         if (post[i] >= '0' && post[i] <= '9') {
             num = num * 10 + (post[i] - '0');
-        }
-        else if (post[i] == ' ') {
+        } else if (post[i] == ' ') {
             if (num != 0) {
                 stack1.push(num);
                 num = 0;
             }
-        }
-        else {
+        } else {
             int op1 = stack1.get();
             stack1.pop();
             int op2 = stack1.get();
@@ -103,12 +88,4 @@ int eval(std::string post) {
         }
     }
     return stack1.get();
-}
-int main() {
-	
-	std::string test = "(2+2)*(3-1)";
-	std::cout << test << std::endl;
-    std::cout << infx2pstfx(test) << std::endl;
-    std::cout << eval(infx2pstfx(test));
-	return 0;
 }
