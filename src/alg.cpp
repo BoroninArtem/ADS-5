@@ -21,30 +21,26 @@ std::string infx2pstfx(std::string inf) {
         if (inf[i] >= '0' && inf[i] <= '9') {
             if (i < inf.size() - 1 && inf[i + 1] >= '0' && inf[i + 1] <= '9') {
                 str.push_back(static_cast<char>(str[i])));
-            }
-            else {
+            } else {
                 str.push_back(static_cast<char>(inf[i]));
                 str.push_back(' ');
             }
-        }
-        else {
+        } else {
             pr = getPrior(inf[i]);
-            if ((pr == 0) || (myStack.isEmpty()) || (pr > getPrior(myStack.top()))) {
+            if ((pr == 0) || (myStack.isEmpty()) || (pr > getPrior(myStack.get()))) {
                 myStack.push(inf[i]);
-            }
-            else if (pr == 1) {
-                while (myStack.top() != '(') {
-                    if (myStack.top() != ')' && myStack.top() != '(') {
-                        str.push_back(myStack.top());
+            } else if (pr == 1) {
+                while (myStack.get() != '(') {
+                    if (myStack.get() != ')' && myStack.get() != '(') {
+                        str.push_back(myStack.get());
                         str.push_back(' ');
                     }
                     myStack.pop();
                 }
                 myStack.pop();
-            }
-            else {
-                while (!myStack.isEmpty() && getPrior(myStack.top()) >= pr) {
-                    str.push_back(myStack.top());
+            } else {
+                while (!myStack.isEmpty() && getPrior(myStack.get()) >= pr) {
+                    str.push_back(myStack.get());
                     str.push_back(' ');
                     myStack.pop();
                 }
@@ -53,7 +49,7 @@ std::string infx2pstfx(std::string inf) {
         }
     }
     while (!myStack.isEmpty()) {
-        str.push_back(myStack.top());
+        str.push_back(myStack.get());
         str.push_back(' ');
         myStack.pop();
     }
@@ -65,17 +61,15 @@ int eval(std::string post) {
     for (int i = 0; i < post.size(); i++) {
         if (post[i] >= '0' && post[i] <= '9') {
             num = num * 10 + (post[i] - '0');
-        }
-        else if (post[i] == ' ') {
+        } else if (post[i] == ' ') {
             if (num != 0) {
                 stack1.push(num);
                 num = 0;
             }
-        }
-        else {
-            int op1 = stack1.top();
+        } else {
+            int op1 = stack1.get();
             stack1.pop();
-            int op2 = stack1.top();
+            int op2 = stack1.get();
             stack1.pop();
             switch (post[i]) {
             case '+':
@@ -93,5 +87,5 @@ int eval(std::string post) {
             }
         }
     }
-    return stack1.top();
+    return stack1.get();
 }
