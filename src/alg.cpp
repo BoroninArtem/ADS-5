@@ -20,7 +20,7 @@ std::string infx2pstfx(std::string inf) {
     for (int i = 0; i < inf.size(); i++) {
         if (inf[i] >= '0' && inf[i] <= '9') {
             if (i < inf.size() - 1 && inf[i + 1] >= '0' && inf[i + 1] <= '9') {
-                str.push_back(static_cast<char>(str[i]));
+                str.push_back(static_cast<char>(inf[i]));
             } else {
                 str.push_back(static_cast<char>(inf[i]));
                 str.push_back(' ');
@@ -53,6 +53,7 @@ std::string infx2pstfx(std::string inf) {
         str.push_back(' ');
         myStack.pop();
     }
+    str.pop_back();
     return str;
 }
 int eval(std::string post) {
@@ -82,7 +83,11 @@ int eval(std::string post) {
                 stack1.push(op2 * op1);
                 break;
             case '/':
-                stack1.push(op2 / op1);
+                if (op1 != 0) {
+                    stack1.push(op2 / op1);
+                } else {
+                    throw "Division by zero";
+                }
                 break;
             }
         }
